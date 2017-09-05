@@ -1,5 +1,8 @@
 #!/usr/bin/latino
 
+sis.ejecutar("grep -rn 'raw' *")
+poner("\n\n")
+
 global html = "html"
 global md, markdown = "markdown", "markdown"
 
@@ -35,3 +38,14 @@ funcion mensaje_recibido()
     fin
 fin
 */
+
+offset = "0"
+mientras verdadero
+    poner(offset)
+    res = api.getUpdates("1")
+    desde (i=0; i<res.result; i++)
+        msg = res.result[i]
+        //offset = msg.message_id
+        poner(msg)
+    fin
+fin

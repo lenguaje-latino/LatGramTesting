@@ -4,12 +4,12 @@ global funcion cargar_plugins()
     global plugins_montados = []
     plugins = []
     desde (plugin_cargado=0; plugin_cargado<config.plugins; plugin_cargado++)
-        existe = archivo.leer(config.dir..config.plugins[plugin_cargado]..".lat")
+        existe = archivo.leer(config.plugins[plugin_cargado]..".lat")
         si ! existe
             poner("f")
             //imprimirf(color.r_rojo.."\tError al leer plugin "..color.blanco.."'"..config.plugins[plugin_cargado]..".lat'."..color.reset.."\n")
         sino
-            plugin = incluir(config.dir..config.plugins[plugin_cargado])
+            plugin = incluir(config.plugins[plugin_cargado])
             lista.agregar(plugins_montados, config.plugins[plugin_cargado]..".lat")
             lista.agregar(plugins, plugin)
             //imprimirf(color.verde.."\tPlugin:\t"..color.cyan..config.plugins[plugin_cargado].."\t"..color.amarillo.."["..(plugin_cargado+1).."/"..(config.plugins+0).."] "..color.r_cyan.." [ iniciado ]"..color.reset.."\n")

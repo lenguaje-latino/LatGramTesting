@@ -4,6 +4,6 @@ retornar {
         189041244
     ],
     "plugins":[
-        "plugins/start.lat"
+        "plugins/start"
     ]
 }

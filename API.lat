@@ -2,8 +2,10 @@ global URL = 'https://api.telegram.org/bot' .. config.api_key .. '/'
 global AURL = 'https://api.telegram.org/file/bot' .. config.api_key .. '/'
 
 global funcion method(metodo)
-    raw = curl.peticion(URL..metodo)
+    completed = URL..metodo
+    raw = curl.peticion(completed)
     si !raw retornar falso fin
+    poner("-- RAW\t"..tipo(raw).."\n\n"..raw.."\n\n--FINAL\n\n")
     data = json.decodificar(raw)
     si !data retornar falso fin
     si data.ok
@@ -48,7 +50,7 @@ funcion getUpdates(offset, limit, timeout, allowed_updates)
     si allowed_updates
         metodo = metodo .. "&allowed_updates="..allowed_updates
     fin
-    retornar method(enlace)
+    retornar method(metodo)
 fin
 
 retornar {

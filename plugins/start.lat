@@ -1,5 +1,5 @@
 funcion mensaje()
-
+    poner("n")
 fin
 
 
