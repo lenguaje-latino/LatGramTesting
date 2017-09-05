@@ -1,0 +1,6 @@
+retornar {
+    "api_key":"358444388:AAFSK8FMshVNg3omTkJnkNCAuORIzFO5CHU",
+    "plugins":[
+        "plugins/start.lat"
+    ]
+}

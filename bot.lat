@@ -1,0 +1,134 @@
+#!/usr/bin/latino
+
+incluir("curl")
+incluir("json")
+incluir("redis")
+incluir("UT")
+config = incluir("config")
+
+URL = 'https://api.telegram.org/bot' .. config.api_key .. '/'
+AURL = 'https://api.telegram.org/file/bot' .. config.api_key .. '/'
+html = "html"
+md = "markdown"
+msg = {
+    "text": "v"
+}
+cargar_plugins()
+funcion inicio_bot(recarga)
+    desde (num_plugin=0; num_plugin<plugins; num_plugin++)
+        si tipo(plugins[num_plugin].subproceso) == "funcion" // convertimos a cadena y obligamos al usuario a usar una función
+            plugins[num_plugin].subproceso()
+        fin
+        si plugins[num_plugin].comandos
+            desde (num_comando=0; num_comando<(plugins[num_plugin].comandos); num_comando++)
+                si msg.text
+                    matches = cadena.match(msg.texto, plugins[num_plugin].comandos[num_comando])
+                    si matches
+                        matches = matches[0]
+                        blocks = matches
+                        poner(blocks)
+                        plugins[num_plugin].accion()
+                    fin
+                fin
+            fin
+        fin
+    fin
+fin
+/*
+funcion iniciar_bot()
+    incluir_variables()
+    desde (num_plugin=0; num_plugin<plugins; num_plugin++)
+        si tipo(plugins[num_plugin].subproceso) == "funcion" // convertimos a cadena y obligamos al usuario a usar una función
+            retorna = plugins[num_plugin].subproceso()
+            si (retorna && tipo(retorna) != "logico" && !json_res)
+                poner(color.r_azul..color.marcado.."\n "..retorna.." "..color.reset
+                ..color.r_rojo.."\nPlugin: "..color.blanco..color.subrayado..plugins_montados[num_plugin]
+                ..color.reset, 1)
+                retornar 0
+            fin
+        fin
+        si plugins[num_plugin].comandos
+            desde (num_comando=0; num_comando<(plugins[num_plugin].comandos); num_comando++)
+                si msg.texto
+                    matches = cadena.match(msg.texto, plugins[num_plugin].comandos[num_comando])
+                    si matches
+                        matches = matches[0]
+                        blocks = matches
+                        si tipo(plugins[num_plugin].accion) == "funcion" && !json_res
+                            plugins[num_plugin].accion()
+                            poner(color.marcado..color.r_verde.."\n "..matches[0].." "..color.reset
+                            ..color.r_verde.."\nUsuario: "..color.reset..msg.de.nombre
+                            ..color.r_verde.."\nID: "..color.amarillo..msg.de.id
+                            ..color.r_rojo.."\nPlugin: "..color.blanco..color.subrayado..plugins_montados[num_plugin]
+                            ..color.reset, 1)
+                            retornar 0
+                        fin
+                    fin
+                fin
+            fin
+        fin
+        si plugins[num_plugin].callbacks
+            desde (cb_num=0; cb_num<(plugins[num_plugin].callbacks); cb_num++)
+                si cb && cb.datos
+                    cmatches = cadena.match(cb.datos, plugins[num_plugin].callbacks[cb_num])
+                    si cmatches
+                        cmatches = cmatches[0]
+                        cblocks = cmatches
+                        si tipo(plugins[num_plugin].callback) == "funcion" && !json_res
+                            plugins[num_plugin].callback()
+                            poner(color.marcado..color.blanco.."\n "..cmatches[0].." "..color.reset
+                            ..color.r_verde.."\nUsuario: "..color.reset..cb.de.nombre
+                            ..color.r_verde.."\nID: "..color.amarillo..cb.de.id
+                            ..color.r_rojo.."\nPlugin: "..color.blanco..color.subrayado..plugins_montados[num_plugin]
+                            ..color.reset, 1)
+                            retornar 0
+                        fin
+                    fin
+                fin
+            fin
+        fin
+        si config.consultas_inline
+            si plugins[num_plugin].icomandos
+                desde (num_icomando=0; num_icomando<(plugins[num_plugin].icomandos); num_icomando++)
+                    si cinline && cinline.texto
+                        imatches = cadena.match(cinline.texto, plugins[num_plugin].icomandos[num_icomando])
+                        si imatches
+                            imatches = imatches[0]
+                            iblocks = imatches
+                            si tipo(plugins[num_plugin].inline) == "funcion" && !json_res
+                                plugins[num_plugin].inline()
+                                poner(color.marcado..color.r_purpura.."\n "..imatches[0].." "..color.reset
+                                ..color.r_verde.."\nUsuario: "..color.reset..cinline.de.nombre
+                                ..color.r_verde.."\nID: "..color.amarillo..cinline.de.id
+                                ..color.r_rojo.."\nPlugin: "..color.blanco..color.subrayado..plugins_montados[num_plugin]
+                                ..color.reset, 1)
+                                retornar 0
+                            fin
+                        fin
+                    fin
+                fin
+            fin
+            si plugins[num_plugin].canal_comandos
+                desde (num_cncom=0; num_cncom<(plugins[num_plugin].canal_comandos); num_cncom++)
+                    si canal && canal.texto
+                        clmatches = cadena.match(canal.texto, plugins[num_plugin].canal_comandos[num_cncom])
+                        si clmatches
+                            clmatches = clmatches[0]
+                            clblocks = clmatches
+                            si tipo(plugins[num_plugin].canal_fun) == "funcion" && !json_res
+                                plugins[num_plugin].canal_fun()
+                                poner(color.marcado..color.r_purpura.."\n "..clmatches[0].." "..color.reset
+                                ..color.r_verde.."\nUsuario: "..color.reset..canal.de.usuario
+                                ..color.r_verde.."\nID: "..color.amarillo..canal.de.id
+                                ..color.r_rojo.."\nPlugin: "..color.blanco..color.subrayado..plugins_montados[num_plugin]
+                                ..color.reset, 1)
+                                retornar 0
+                            fin
+                        fin
+                    fin
+                fin
+            fin
+        fin
+    fin
+fin
+*/
