@@ -1,3 +1,58 @@
-methods = {
-    
+global URL = 'https://api.telegram.org/bot' .. config.api_key .. '/'
+global AURL = 'https://api.telegram.org/file/bot' .. config.api_key .. '/'
+
+global funcion method(metodo)
+    raw = curl.peticion(URL..metodo)
+    si !raw retornar falso fin
+    data = json.decodificar(raw)
+    si !data retornar falso fin
+    si data.ok
+        retornar data
+    fin
+    retornar falso, data.description
+fin
+
+funcion sendMessage(chat_id, text, parse_mode, disable_web_page_preview, disable_notification, reply_to_message_id, reply_markup)
+        metodo = "sendMessage?chat_id=" .. chat_id .. "&text=" .. curl.escape(text)
+        si parse_mode
+                elegir(parse_mode)
+                    caso "markdown":
+                    metodo = metodo .. "&parse_mode="..parse_mode
+                    caso "html":
+                    metodo = metodo .. "&parse_mode="..parse_mode
+                fin
+        fin
+        si disable_web_page_preview
+            metodo = metodo .. "&disable_web_page_preview=true"
+        fin
+        si disable_notification
+            metodo = metodo .. "&disable_notification=true"
+        fin
+        si reply_to_message_id
+            metodo = metodo .. "&reply_to_message_id="..reply_to_message_id
+        fin
+        si reply_markup
+            metodo = metodo .. "&reply_markup="..json.codificar(reply_markup)
+        fin
+        retornar method(metodo)
+fin
+
+funcion getUpdates(offset, limit, timeout, allowed_updates)
+    metodo = "getUpdates?offset="..offset
+    si limit
+        metodo = metodo .. "&limit="..limit
+    fin
+    si timeout
+        metodo = metodo .. "&timeout="..timeout
+    fin
+    si allowed_updates
+        metodo = metodo .. "&allowed_updates="..allowed_updates
+    fin
+    retornar method(enlace)
+fin
+
+retornar {
+    "enviarMensaje": sendMessage,
+    "sendMessage": sendMessage,
+    "getUpdates": getUpdates
 }

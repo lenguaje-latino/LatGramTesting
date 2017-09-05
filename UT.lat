@@ -1,4 +1,4 @@
-global color = incluir("lib/colors")
+//global color = incluir("lib/colors")
 
 global funcion cargar_plugins()
     global plugins_montados = []
@@ -6,19 +6,20 @@ global funcion cargar_plugins()
     desde (plugin_cargado=0; plugin_cargado<config.plugins; plugin_cargado++)
         existe = archivo.leer(config.dir..config.plugins[plugin_cargado]..".lat")
         si ! existe
-            imprimirf(color.r_rojo.."\tError al leer plugin "..color.blanco.."'"..config.plugins[plugin_cargado]..".lat'."..color.reset.."\n")
+            poner("f")
+            //imprimirf(color.r_rojo.."\tError al leer plugin "..color.blanco.."'"..config.plugins[plugin_cargado]..".lat'."..color.reset.."\n")
         sino
             plugin = incluir(config.dir..config.plugins[plugin_cargado])
             lista.agregar(plugins_montados, config.plugins[plugin_cargado]..".lat")
             lista.agregar(plugins, plugin)
-            imprimirf(color.verde.."\tPlugin:\t"..color.cyan..config.plugins[plugin_cargado].."\t"..color.amarillo.."["..(plugin_cargado+1).."/"..(config.plugins+0).."] "..color.r_cyan.." [ iniciado ]"..color.reset.."\n")
+            //imprimirf(color.verde.."\tPlugin:\t"..color.cyan..config.plugins[plugin_cargado].."\t"..color.amarillo.."["..(plugin_cargado+1).."/"..(config.plugins+0).."] "..color.r_cyan.." [ iniciado ]"..color.reset.."\n")
         fin
     fin
-    si plugins_montados < config.plugins
-        imprimirf(color.purpura.."\taviso: "..color.rojo
-        .."verifica config.lat, se montaron "..lista.longitud(plugins_montados).." plugins de "..lista.longitud(config.plugins)..color.reset.."\n")
-    fin
-    imprimirf(color.simp("b.blanco")
+    //si plugins_montados < config.plugins
+        //imprimirf(color.purpura.."\taviso: "..color.rojo
+        //.."verifica config.lat, se montaron "..lista.longitud(plugins_montados).." plugins de "..lista.longitud(config.plugins)..color.reset.."\n")
+    //fin
+    /*imprimirf(color.simp("b.blanco")
     .."\n\tSubproceso "..color.simp("bm.azul").."  "..color.reset
     ..color.simp("b.blanco")
     .."  Mensaje "..color.simp("bm.verde").."  "..color.reset
@@ -26,6 +27,12 @@ global funcion cargar_plugins()
     .."  Inline "..color.simp("bm.purpura").."  "..color.reset
     ..color.simp("b.blanco")
     .."  Callback "..color.simp("m.blanco").."  "
-    ..color.reset..color.bold.."\n\tVersion: "..VERSION.."\n"..color.reset.."\n")
+    ..color.reset..color.bold.."\n\tVersion: "..VERSION.."\n"..color.reset.."\n")*/
     retornar plugins
+fin
+
+global funcion reportar_administradores_bot(mensaje)
+    desde (i=0; i<config.admins; i++)
+        api.enviarMensaje(config.admins[i], mensaje, markdown)
+    fin
 fin

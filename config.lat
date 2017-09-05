@@ -1,5 +1,8 @@
 retornar {
     "api_key":"358444388:AAFSK8FMshVNg3omTkJnkNCAuORIzFO5CHU",
+    "admins":[
+        189041244
+    ],
     "plugins":[
         "plugins/start.lat"
     ]

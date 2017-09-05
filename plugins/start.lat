@@ -1,0 +1,10 @@
+funcion mensaje()
+
+fin
+
+
+retornar {
+    "comandos":[
+        "^/start$"
+    ]
+}
