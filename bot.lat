@@ -1,8 +1,4 @@
 #!/usr/bin/latino
-
-sis.ejecutar("grep -rn 'raw' *")
-poner("\n\n")
-
 global html = "html"
 global md, markdown = "markdown", "markdown"
 
@@ -14,11 +10,11 @@ incluir("json")
 incluir("redis")
 incluir("UT")
 
-reportar_administradores_bot("*Bot iniciado*\n"..sis.tiempo("%c"))
+#reportar_administradores_bot("*Bot iniciado*\n"..sis.tiempo("%c"))
 
-cargar_plugins()
-/*
-funcion mensaje_recibido()
+plugins = cargar_plugins()
+
+funcion mensaje_recibido(msg)
     desde (num_plugin=0; num_plugin<plugins; num_plugin++)
         si tipo(plugins[num_plugin].subproceso) == "funcion" // convertimos a cadena y obligamos al usuario a usar una función
             plugins[num_plugin].subproceso()
@@ -26,7 +22,7 @@ funcion mensaje_recibido()
         si plugins[num_plugin].comandos
             desde (num_comando=0; num_comando<(plugins[num_plugin].comandos); num_comando++)
                 si msg.text
-                    matches = cadena.match(msg.texto, plugins[num_plugin].comandos[num_comando])
+                    matches = cadena.match(msg.text, plugins[num_plugin].comandos[num_comando])
                     si matches
                         matches = matches[0]
                         blocks = matches
@@ -37,15 +33,15 @@ funcion mensaje_recibido()
         fin
     fin
 fin
-*/
 
-offset = "0"
+
+offset = 0
 mientras verdadero
-    poner(offset)
-    res = api.getUpdates("1")
+    res = api.getUpdates(offset+1)
     desde (i=0; i<res.result; i++)
-        msg = res.result[i]
-        //offset = msg.message_id
-        poner(msg)
+        res = res.result[i]
+        offset = res.update_id
+        msg = res.message
+        mensaje_recibido(msg)
     fin
 fin

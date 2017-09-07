@@ -1,8 +1,6 @@
 funcion v()
 enlace = "j"
-//enlace ..= "m"
-si a
-	d = "j"
-//enlace ..= "m"
+si enlace
+	enlace .. = "jnj"
 fin
 fin

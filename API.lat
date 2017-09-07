@@ -5,7 +5,7 @@ global funcion method(metodo)
     completed = URL..metodo
     raw = curl.peticion(completed)
     si !raw retornar falso fin
-    poner("-- RAW\t"..tipo(raw).."\n\n"..raw.."\n\n--FINAL\n\n")
+    #poner("-- RAW\t"..tipo(raw).."\n\n"..raw.."\n\n--FINAL\n\n")
     data = json.decodificar(raw)
     si !data retornar falso fin
     si data.ok
@@ -54,7 +54,6 @@ funcion getUpdates(offset, limit, timeout, allowed_updates)
 fin
 
 retornar {
-    "enviarMensaje": sendMessage,
-    "sendMessage": sendMessage,
+    "enviarMensaje": sendMessage, "sendMessage": sendMessage,
     "getUpdates": getUpdates
 }

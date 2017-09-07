@@ -1,10 +1,10 @@
 funcion mensaje()
-    poner("n")
+    test = api.enviarMensaje(msg.chat.id, blocks[1])
 fin
 
-
 retornar {
+    "accion": mensaje,
     "comandos":[
-        "^/start$"
+        "(.*)"
     ]
 }
