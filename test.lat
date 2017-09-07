@@ -1,6 +1,0 @@
-funcion v()
-enlace = "j"
-si enlace
-	enlace .. = "jnj"
-fin
-fin
